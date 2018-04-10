@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# [START slides_quickstart]
 require 'google/apis/slides_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -60,3 +60,4 @@ puts "The presentation contains #{presentation.slides.count} slides:"
 presentation.slides.each_with_index do |slide, i|
   puts "- Slide \##{i + 1} contains #{slide.page_elements.count} elements."
 end
+# [END slides_quickstart]

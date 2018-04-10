@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START sheets_quickstart]
-require 'google/apis/sheets_v4'
+# [START admin_sdk_reports_quickstart]
+require 'google/apis/admin_reports_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
-CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
+APPLICATION_NAME = 'Reports API Ruby Quickstart'.freeze
+CLIENT_SECRETS_PATH = 'client_secrets.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
+SCOPE = Google::Apis::AdminReportsV1::AUTH_ADMIN_REPORTS_AUDIT_READONLY
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,19 +48,18 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::SheetsV4::SheetsService.new
+service = Google::Apis::AdminReportsV1::ReportsService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Prints the names and majors of students in a sample spreadsheet:
-# https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-spreadsheet_id = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-range = 'Class Data!A2:E'
-response = service.get_spreadsheet_values(spreadsheet_id, range)
-puts 'Name, Major:'
-puts 'No data found.' if response.values.empty?
-response.each_values do |row|
-  # Print columns A and E, which correspond to indices 0 and 4.
-  puts "#{row[0]}, #{row[4]}"
+# Print the last 10 login events.
+user = 'all'
+application = 'login'
+response = service.list_activities(user, application, max_results: 10)
+
+puts "Logins:"
+puts "No results found" if response.items.empty?
+response.items.each do |activity|
+  puts "- #{activity.id.time}: #{activity.actor.email} (#{activity.events.first.name})"
 end
-# [END sheets_quickstart]
+# [END admin_sdk_reports_quickstart]

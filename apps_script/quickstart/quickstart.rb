@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START sheets_quickstart]
-require 'google/apis/sheets_v4'
+# [START apps_script_quickstart]
+require 'google/apis/script_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
+APPLICATION_NAME = 'Google Apps Script API Ruby Quickstart'.freeze
 CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
+SCOPE = 'https://www.googleapis.com/auth/script.projects'
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,19 +48,46 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::SheetsV4::SheetsService.new
+service = Google::Apis::ScriptV1::ScriptService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Prints the names and majors of students in a sample spreadsheet:
-# https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-spreadsheet_id = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-range = 'Class Data!A2:E'
-response = service.get_spreadsheet_values(spreadsheet_id, range)
-puts 'Name, Major:'
-puts 'No data found.' if response.values.empty?
-response.each_values do |row|
-  # Print columns A and E, which correspond to indices 0 and 4.
-  puts "#{row[0]}, #{row[4]}"
+begin
+  # Initialize the API
+  service = Google::Apis::ScriptV1::ScriptService.new
+  service.client_options.application_name = APPLICATION_NAME
+  service.authorization = authorize
+
+  # Make the API request.
+  request = Google::Apis::ScriptV1::CreateProjectRequest.new(
+    title: "My Script"
+  )
+  resp = service.create_project(request)
+
+  script_id = resp.script_id
+  content = Google::Apis::ScriptV1::Content.new(
+    files: [
+      Google::Apis::ScriptV1::File.new(
+        name: "hello",
+        type: "SERVER_JS",
+        source: "function helloWorld() {\n  console.log('Hello, world!');\n}"
+      ),
+      Google::Apis::ScriptV1::File.new(
+        name: "appsscript",
+        type: "JSON",
+        source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \
+          \"CLOUD\"}"
+      )
+    ],
+    script_id: script_id
+  )
+  service.update_project_content(script_id, content)
+  puts "https://script.google.com/d/#{script_id}/edit"
+rescue Google::Apis::ServerError
+  puts "An error occurred on the server and the request can be retried."
+rescue Google::Apis::ClientError
+  puts "The request is invalid and should not be retried without modification."
+rescue Google::Apis::AuthorizationError
+  puts "Authorization is required."
 end
-# [END sheets_quickstart]
+# [END apps_script_quickstart]

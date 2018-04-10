@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START sheets_quickstart]
-require 'google/apis/sheets_v4'
+# [START admin_sdk_groups_migration_quickstart]
+require 'google/apis/groupsmigration_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
-CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
+APPLICATION_NAME = 'Groups Migration API Ruby Quickstart'.freeze
+CLIENT_SECRETS_PATH = 'client_secrets.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
+SCOPE = Google::Apis::GroupsmigrationV1::AUTH_APPS_GROUPS_MIGRATION
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,19 +48,31 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::SheetsV4::SheetsService.new
+service = Google::Apis::GroupsmigrationV1::GroupsMigrationService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Prints the names and majors of students in a sample spreadsheet:
-# https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-spreadsheet_id = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-range = 'Class Data!A2:E'
-response = service.get_spreadsheet_values(spreadsheet_id, range)
-puts 'Name, Major:'
-puts 'No data found.' if response.values.empty?
-response.each_values do |row|
-  # Print columns A and E, which correspond to indices 0 and 4.
-  puts "#{row[0]}, #{row[4]}"
-end
-# [END sheets_quickstart]
+puts "Warning: A test email will be inserted into the group entered below.";
+puts 'Enter the email address of a Google Group in your domain: ';
+group_id = gets.strip;
+
+# Format an RFC822 message
+now = Time.now
+message_id = "#{now.to_f}-#{group_id}"
+messag_date = now.strftime '%a, %d %b %Y %T %z'
+message = <<-EOF
+Message-ID: <#{message_id}>
+Date: #{message_date}
+To: #{group_id}
+From: "Alice Smith" <alice@example.com>
+Subject: Groups Migration API Test
+
+This is a test.
+EOF
+
+# Insert a test email into the group.
+response = service.insert_archive(group_id,
+                                  upload_source: StringIO.new(message),
+                                  content_type: 'message/rfc822')
+puts "Result: #{response.response_code}"
+# [END admin_sdk_groups_migration_quickstart]

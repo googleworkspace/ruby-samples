@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# [START drive_quickstart]
 require 'google/apis/drive_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -60,3 +60,4 @@ puts 'No files found' if response.files.empty?
 response.files.each do |file|
   puts "#{file.name} (#{file.id})"
 end
+# [END drive_quickstart]

@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+# [START calendar_quickstart]
 require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -65,3 +65,4 @@ response.items.each do |event|
   start = event.start.date || event.start.date_time
   puts "- #{event.summary} (#{start})"
 end
+# [END calendar_quickstart]

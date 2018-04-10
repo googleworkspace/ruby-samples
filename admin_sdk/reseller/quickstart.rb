@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START sheets_quickstart]
-require 'google/apis/sheets_v4'
+# [START admin_sdk_reseller_quickstart]
+require 'google/apis/admin_reports_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
-CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
+APPLICATION_NAME = 'Reseller API Ruby Quickstart'.freeze
+CLIENT_SECRETS_PATH = 'client_secrets.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
+SCOPE = Google::Apis::ResellerV1::AUTH_APPS_ORDER
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,19 +48,15 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::SheetsV4::SheetsService.new
+service = Google::Apis::ResellerV1::ResellerService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
+# Print the first 10 subscriptions you manage.
+response = service.list_subscriptions(max_results: 10)
 
-# Prints the names and majors of students in a sample spreadsheet:
-# https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-spreadsheet_id = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-range = 'Class Data!A2:E'
-response = service.get_spreadsheet_values(spreadsheet_id, range)
-puts 'Name, Major:'
-puts 'No data found.' if response.values.empty?
-response.each_values do |row|
-  # Print columns A and E, which correspond to indices 0 and 4.
-  puts "#{row[0]}, #{row[4]}"
+puts "Subscriptions:"
+puts "No subscriptions found" if response.subscriptions.empty?
+response.subscriptions.each do |subscription|
+  puts "- #{subscription.customer_id} (#{subscription.sku_id}, #{subscription.plan.plan_name})"
 end
-# [END sheets_quickstart]
+# [END admin_sdk_reseller_quickstart]

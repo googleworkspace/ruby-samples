@@ -2,13 +2,31 @@
 
 ## Products
 
+### Admin SDK
+
+- [Directory Quickstart](https://developers.google.com/admin-sdk/directory/v1/quickstart/ruby)
+- [Group Migration Quickstart](https://developers.google.com/admin-sdk/groups-migration/v1/quickstart/ruby)
+- [Group Settings Quickstart](https://developers.google.com/admin-sdk/groups-settings/quickstart/ruby)
+- [Licensing Quickstart](https://developers.google.com/admin-sdk/licensing/v1/quickstart/ruby)
+- [Reports Quickstart](https://developers.google.com/admin-sdk/reports/v1/quickstart/ruby)
+- [Reseller Quickstart](https://developers.google.com/admin-sdk/reseller/v1/quickstart/ruby)
+
+### Apps Script
+
+- [Quickstart](https://developers.google.com/apps-script/api/quickstart/ruby)
+
 ### Calendar
 
 - [Quickstart](https://developers.google.com/google-apps/calendar/quickstart/ruby)
 
-### Drive
+### Classroom
+
+- [Quickstart](https://developers.google.com/classroom/quickstart/ruby)
+
+### Drive V3
 
 - [Quickstart](https://developers.google.com/drive/v3/web/quickstart/ruby)
+- [Snippets](https://developers.google.com/drive/v3/web/about-sdk)
 
 ### Gmail
 
@@ -17,12 +35,16 @@
 ### Sheets
 
 - [Quickstart](https://developers.google.com/sheets/api/quickstart/ruby)
-- Snippets
+- [Snippets](https://developers.google.com/sheets/api/guides/concepts)
 
 ### Slides
 
 - [Quickstart](https://developers.google.com/slides/quickstart/ruby)
-- Snippets
+- [Snippets](https://developers.google.com/slides/how-tos/overview)
+
+### Tasks
+
+- [Quickstart](https://developers.google.com/google-apps/tasks/quickstart/ruby)
 
 ## Tools
 

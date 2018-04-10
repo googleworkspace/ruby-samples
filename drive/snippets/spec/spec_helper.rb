@@ -41,7 +41,7 @@ module TestHelpers
   end
 
   def drive_service
-    @service ||= build_service
+    @drive_service ||= build_service
   end
 
   def reset

@@ -57,8 +57,8 @@ user = 'all'
 application = 'login'
 response = service.list_activities(user, application, max_results: 10)
 
-puts "Logins:"
-puts "No results found" if response.items.empty?
+puts 'Logins:'
+puts 'No results found' if response.items.empty?
 response.items.each do |activity|
   puts "- #{activity.id.time}: #{activity.actor.email} (#{activity.events.first.name})"
 end

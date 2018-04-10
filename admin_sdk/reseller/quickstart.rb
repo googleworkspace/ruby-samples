@@ -54,8 +54,8 @@ service.authorization = authorize
 # Print the first 10 subscriptions you manage.
 response = service.list_subscriptions(max_results: 10)
 
-puts "Subscriptions:"
-puts "No subscriptions found" if response.subscriptions.empty?
+puts 'Subscriptions:'
+puts 'No subscriptions found' if response.subscriptions.empty?
 response.subscriptions.each do |subscription|
   puts "- #{subscription.customer_id} (#{subscription.sku_id}, #{subscription.plan.plan_name})"
 end

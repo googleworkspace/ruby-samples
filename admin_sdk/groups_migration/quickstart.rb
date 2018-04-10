@@ -52,23 +52,23 @@ service = Google::Apis::GroupsmigrationV1::GroupsMigrationService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-puts "Warning: A test email will be inserted into the group entered below.";
-puts 'Enter the email address of a Google Group in your domain: ';
-group_id = gets.strip;
+puts 'Warning: A test email will be inserted into the group entered below.'
+puts 'Enter the email address of a Google Group in your domain: '
+group_id = gets.strip
 
 # Format an RFC822 message
 now = Time.now
 message_id = "#{now.to_f}-#{group_id}"
-messag_date = now.strftime '%a, %d %b %Y %T %z'
-message = <<-EOF
-Message-ID: <#{message_id}>
-Date: #{message_date}
-To: #{group_id}
-From: "Alice Smith" <alice@example.com>
-Subject: Groups Migration API Test
+message_date = now.strftime '%a, %d %b %Y %T %z'
+message = <<~MESSAGE
+  Message-ID: <#{message_id}>
+  Date: #{message_date}
+  To: #{group_id}
+  From: "Alice Smith" <alice@example.com>
+  Subject: Groups Migration API Test
 
-This is a test.
-EOF
+  This is a test.
+MESSAGE
 
 # Insert a test email into the group.
 response = service.insert_archive(group_id,

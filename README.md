@@ -1,4 +1,4 @@
-# G Suite Ruby Samples
+# G Suite Ruby Samples [![Build Status](https://travis-ci.org/gsuitedevs/ruby-samples.svg?branch=master)](https://travis-ci.org/gsuitedevs/ruby-samples)
 
 A collection of samples that demonstrate how to call G Suite APIs in Ruby.
 
@@ -55,4 +55,13 @@ A collection of samples that demonstrate how to call G Suite APIs in Ruby.
 ```
 gem install rubocop
 rubocop
+```
+
+It should not produce any errors, i.e.:
+
+```sh
+Inspecting 24 files
+........................
+
+24 files inspected, no offenses detected
 ```

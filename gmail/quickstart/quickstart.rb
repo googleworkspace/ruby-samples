@@ -56,7 +56,7 @@ service.authorization = authorize
 user_id = 'me'
 result = service.list_user_labels(user_id)
 
-puts "Labels:"
-puts "No labels found" if result.labels.empty?
+puts 'Labels:'
+puts 'No labels found' if result.labels.empty?
 result.labels.each { |label| puts "- #{label.name}" }
 # [END gmail_quickstart]

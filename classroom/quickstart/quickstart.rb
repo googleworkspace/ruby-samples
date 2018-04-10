@@ -54,8 +54,8 @@ service.authorization = authorize
 # List the first 10 courses the user has access to.
 response = service.list_courses(page_size: 10)
 
-puts "Courses:"
-puts "No courses found" if response.courses.empty?
+puts 'Courses:'
+puts 'No courses found' if response.courses.empty?
 response.courses.each do |course|
   puts "- #{course.name} (#{course.id})"
 end

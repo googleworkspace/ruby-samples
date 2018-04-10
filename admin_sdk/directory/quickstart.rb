@@ -56,7 +56,7 @@ service.authorization = authorize
 response = service.list_users(customer: 'my_customer',
                               max_results: 10,
                               order_by: 'email')
-puts "Users:"
-puts "No users found" if response.users.empty?
+puts 'Users:'
+puts 'No users found' if response.users.empty?
 response.users.each { |user| puts "- #{user.primary_email} (#{user.name.full_name})" }
 # [END admin_sdk_directory_quickstart]

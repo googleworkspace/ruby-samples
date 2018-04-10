@@ -51,7 +51,7 @@ end
 service = Google::Apis::LicensingV1::LicensingService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
-puts "Enter the domain name of your G Suite domain:"
+puts 'Enter the domain name of your G Suite domain:'
 customer_id = gets.strip
 
 # Print the license assignments
@@ -60,8 +60,8 @@ response = service.list_license_assignments_for_product(product_id,
                                                         customer_id,
                                                         max_results: 10)
 
-puts "License assignments:"
-puts "No licenses found" if response.items.empty?
+puts 'License assignments:'
+puts 'No licenses found' if response.items.empty?
 response.items.each do |assignment|
   puts "- #{assignment.user_id} (#{assignment.sku_id})"
 end

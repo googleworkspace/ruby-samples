@@ -21,7 +21,7 @@ OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Google Apps Script API Ruby Quickstart'.freeze
 CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = 'https://www.googleapis.com/auth/script.projects'
+SCOPE = 'https://www.googleapis.com/auth/script.projects'.freeze
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -60,7 +60,7 @@ begin
 
   # Make the API request.
   request = Google::Apis::ScriptV1::CreateProjectRequest.new(
-    title: "My Script"
+    title: 'My Script'
   )
   resp = service.create_project(request)
 
@@ -68,13 +68,13 @@ begin
   content = Google::Apis::ScriptV1::Content.new(
     files: [
       Google::Apis::ScriptV1::File.new(
-        name: "hello",
-        type: "SERVER_JS",
+        name: 'hello',
+        type: 'SERVER_JS',
         source: "function helloWorld() {\n  console.log('Hello, world!');\n}"
       ),
       Google::Apis::ScriptV1::File.new(
-        name: "appsscript",
-        type: "JSON",
+        name: 'appsscript',
+        type: 'JSON',
         source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \
           \"CLOUD\"}"
       )
@@ -84,10 +84,10 @@ begin
   service.update_project_content(script_id, content)
   puts "https://script.google.com/d/#{script_id}/edit"
 rescue Google::Apis::ServerError
-  puts "An error occurred on the server and the request can be retried."
+  puts 'An error occurred on the server and the request can be retried.'
 rescue Google::Apis::ClientError
-  puts "The request is invalid and should not be retried without modification."
+  puts 'The request is invalid and should not be retried without modification.'
 rescue Google::Apis::AuthorizationError
-  puts "Authorization is required."
+  puts 'Authorization is required.'
 end
 # [END apps_script_quickstart]

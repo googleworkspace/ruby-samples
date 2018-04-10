@@ -51,7 +51,7 @@ end
 service = Google::Apis::GroupssettingsV1::GroupssettingsService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
-puts "Enter the email address of a Google Group in your domain:"
+puts 'Enter the email address of a Google Group in your domain:'
 group_email = gets.strip
 
 # Print the group settings

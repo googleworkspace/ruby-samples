@@ -1,6 +1,8 @@
 # G Suite Ruby Samples
 
-## Products
+A collection of samples that demonstrate how to call G Suite APIs in Ruby.
+
+## APIs
 
 ### Admin SDK
 

@@ -51,6 +51,7 @@ end
 service = Google::Apis::ResellerV1::ResellerService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
+
 # Print the first 10 subscriptions you manage.
 response = service.list_subscriptions(max_results: 10)
 

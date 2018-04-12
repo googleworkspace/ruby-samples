@@ -51,9 +51,9 @@ end
 service = Google::Apis::TasksV1::TasksService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
+
 # Print the first 10 task lists.
 response = service.list_tasklists(max_results: 10)
-
 puts 'Task lists:'
 puts 'No task lists found' if response.items.empty?
 response.items.each do |task_list|

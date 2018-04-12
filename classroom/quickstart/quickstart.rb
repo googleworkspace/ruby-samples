@@ -51,6 +51,7 @@ end
 service = Google::Apis::ClassroomV1::ClassroomService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
+
 # List the first 10 courses the user has access to.
 response = service.list_courses(page_size: 10)
 

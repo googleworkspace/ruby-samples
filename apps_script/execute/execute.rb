@@ -58,4 +58,4 @@ rescue Google::Apis::ClientError
   # The API encountered a problem before the script started executing.
   puts "Error calling API!"
 end
-// [END apps_script_execute]
+# [END apps_script_execute]

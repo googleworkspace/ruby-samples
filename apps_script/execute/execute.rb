@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # [START apps_script_execute]
-SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'
+SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'.freeze
 
 # Create an execution request object.
 request = Google::Apis::ScriptV1::ExecutionRequest.new(
@@ -35,7 +35,7 @@ begin
 
     if error['scriptStackTraceElements']
       # There may not be a stacktrace if the script didn't start executing.
-      puts "Script error stacktrace:"
+      puts 'Script error stacktrace:'
       error['scriptStackTraceElements'].each do |trace|
         puts "\t#{trace['function']}: #{trace['lineNumber']}"
       end
@@ -45,10 +45,10 @@ begin
     # returns. Here, the function returns an Apps Script Object with String keys
     # and values, and so the result is treated as a Ruby hash (folderSet).
     folder_set = resp.response['result']
-    if folder_set.length == 0
-      puts "No folders returned!"
+    if folder_set.empty?
+      puts 'No folders returned!'
     else
-      puts "Folders under your root folder:"
+      puts 'Folders under your root folder:'
       folder_set.each do |id, folder|
         puts "\t#{folder} (#{id})"
       end
@@ -56,6 +56,6 @@ begin
   end
 rescue Google::Apis::ClientError
   # The API encountered a problem before the script started executing.
-  puts "Error calling API!"
+  puts 'Error calling API!'
 end
 # [END apps_script_execute]

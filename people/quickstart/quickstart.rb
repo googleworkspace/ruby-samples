@@ -11,17 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START gmail_quickstart]
-require 'google/apis/gmail_v1'
+# [START tasks_quickstart]
+require 'google/apis/tasks_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Gmail API Ruby Quickstart'.freeze
+APPLICATION_NAME = 'Google People API Ruby Quickstart'.freeze
 CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
 CREDENTIALS_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::GmailV1::AUTH_GMAIL_READONLY
+SCOPE = Google::Apis::PeopleV3::AUTH_CONTACTS_READONLY
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,14 +48,25 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::GmailV1::GmailService.new
+service = Google::Apis::PeopleV1::PeopleService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Show the user's labels
-user_id = 'me'
-result = service.list_user_labels(user_id)
-puts 'Labels:'
-puts 'No labels found' if result.labels.empty?
-result.labels.each { |label| puts "- #{label.name}" }
-# [END gmail_quickstart]
+# Fetch the next 10 events for the user
+response = service.list_person_connections(
+  'people/me',
+  page_size: 10,
+  person_fields: 'names,emailAddresses'
+)
+
+puts 'Connection names:'
+puts 'No connections found' if response.connections.empty?
+response.connections.each do |person|
+  names = person.names
+  if names.nil?
+    puts 'No names found for connection'
+  else
+    puts "- #{names[0].display_name}"
+  end
+end
+# [END tasks_quickstart]

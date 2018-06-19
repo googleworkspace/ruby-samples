@@ -17,6 +17,9 @@ require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
+# Force command-line prompts to show up immediately.
+$stdout.sync = true
+
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Google Sheets API Ruby Quickstart'.freeze
 CLIENT_SECRETS_PATH = 'client_secret.json'.freeze

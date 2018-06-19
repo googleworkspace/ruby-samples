@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START tasks_quickstart]
-require 'google/apis/tasks_v1'
+# [START people_quickstart]
+require 'google/apis/people_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
@@ -69,4 +69,4 @@ response.connections.each do |person|
     puts "- #{names[0].display_name}"
   end
 end
-# [END tasks_quickstart]
+# [END people_quickstart]

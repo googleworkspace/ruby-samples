@@ -35,28 +35,28 @@ class FileSnippets
   end
 
   def create_presentation(title='Title')
-    # [START create_presentation]
+    # [START slides_create_presentation]
     body = Google::Apis::SlidesV1::Presentation.new
     body.title =  title
     presentation = slides_service.create_presentation(body)
     puts "Created presentation with ID: #{presentation.presentation_id}"
-    # [END create_presentation]
+    # [END slides_create_presentation]
     presentation
   end
 
   def copy_presentation(presentation_id, copy_title)
-    # [START copy_presentation]
+    # [START slides_copy_presentation]
     body = Google::Apis::SlidesV1::Presentation.new
     body.title = copy_title
     drive_response = drive_service.copy_file(presentation_id, body)
     puts drive_response
     presentation_copy_id = drive_response.id
-    # [END copy_presentation]
+    # [END slides_copy_presentation]
     presentation_copy_id
   end
 
   def create_slide(presentation_id, page_id)
-    # [START create_slide]
+    # [START slides_create_slide]
     body = Google::Apis::SlidesV1::Presentation.new
     requests = [{
       create_slide: {
@@ -76,12 +76,12 @@ class FileSnippets
     response = slides_service.batch_update_presentation(presentation_id, req)
     create_slide_response = response.replies[0].create_slide
     puts "Created slide with ID: #{create_slide_response.object_id}"
-    # [END create_slide]
+    # [END slides_create_slide]
     create_slide_response
   end
 
   def create_textbox_with_text(presentation_id, page_id)
-    # [START create_textbox_with_text]
+    # [START slides_create_textbox_with_text]
     # Create a new square textbox, using the supplied element ID.
     element_id = 'MyTextBox_01'
     pt350 = {
@@ -125,12 +125,12 @@ class FileSnippets
       req)
     create_shape_response = response.replies[0].create_shape
     puts "Created textbox with ID: #{create_shape_response.object_id}"
-    # [END create_textbox_with_text]
+    # [END slides_create_textbox_with_text]
     response
   end
 
   def create_image(presentation_id, page_id, image_file_path, image_mimetype)
-    # [START create_image]
+    # [START slides_create_image]
     # Temporarily upload a local image file to Drive, in order to obtain a URL
     # for the image. Alternatively, you can provide the Slides servcie a URL of
     # an already hosted image.
@@ -172,13 +172,13 @@ class FileSnippets
       req)
     create_image_response = response.replies[0].create_image
     puts "Created image with ID: #{create_image_response.object_id}"
-    # [END create_image]
+    # [END slides_create_image]
     response
   end
 
   def text_merging(template_presentation_id, data_spreadsheet_id)
     responses = []
-    # [START text_merging]
+    # [START slides_text_merging]
     # Use the Sheets API to load data, one record per row.
     data_range_notation = 'Customers!A2:M6'
     sheets_response = sheets_service.get_spreadsheet_values(
@@ -242,7 +242,7 @@ class FileSnippets
       puts "Created presentation for #{customer_name} with ID: #{presentation_copy_id}"
       puts "Replaced #{num_replacements} text instances"
     end
-    # [END text_merging]
+    # [END slides_text_merging]
     responses
   end
 
@@ -250,7 +250,7 @@ class FileSnippets
     logo_url = image_url
     customer_graphic_url = image_url
 
-    # [START image_merging]
+    # [START slides_image_merging]
     # Duplicate the template presentation using the Drive API.
     copy_title = customer_name + ' presentation'
     body = Google::Apis::SlidesV1::Presentation.new
@@ -292,12 +292,12 @@ class FileSnippets
     end
     puts "Created presentation for #{customer_name} with ID: #{presentation_copy_id}"
     puts "Replaced #{num_replacements} shapes with images"
-    # [END image_merging]
+    # [END slides_image_merging]
     response
   end
 
   def simple_text_replace(presentation_id, shape_id, replacement_text)
-    # [START simple_text_replace]
+    # [START slides_simple_text_replace]
     # Remove existing text in the shape, then insert new text.
     requests = [] << {
       delete_text: {
@@ -320,12 +320,12 @@ class FileSnippets
       presentation_id,
       req)
     puts "Replaced text in shape with ID: #{shape_id}"
-    # [END simple_text_replace]
+    # [END slides_simple_text_replace]
     response
   end
 
   def text_style_update(presentation_id, shape_id)
-    # [START text_style_update]
+    # [START slides_text_style_update]
     # Update the text style so that the first 5 characters are bolded
     # and italicized, the next 5 are displayed in blue 14 pt Times
     # New Roman font, and the next 5 are hyperlinked.
@@ -390,12 +390,12 @@ class FileSnippets
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(presentation_id, req)
     puts "Updated the text style for shape with ID: #{shape_id}"
-    # [END text_style_update]
+    # [END slides_text_style_update]
     response
   end
 
   def create_bulleted_text(presentation_id, shape_id)
-    # [START create_bulleted_text]
+    # [START slides_create_bulleted_text]
     # Add arrow-diamond-disc bullets to all text in the shape.
     requests = [] << {
       create_paragraph_bullets: {
@@ -411,12 +411,12 @@ class FileSnippets
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(presentation_id, req)
     puts "Added bullets to text in shape with ID: #{shape_id}"
-    # [END create_bulleted_text]
+    # [END slides_create_bulleted_text]
     response
   end
 
   def create_sheets_chart(presentation_id, page_id, spreadsheet_id, sheet_chart_id)
-    # [START create_sheets_chart]
+    # [START slides_create_sheets_chart]
     # Embed a Sheets chart (indicated by the spreadsheet_id and sheet_chart_id) onto
     # a page in the presentation. Setting the linking mode as "LINKED" allows the
     # chart to be refreshed if the Sheets version is updated.
@@ -453,12 +453,12 @@ class FileSnippets
     response = slides_service.batch_update_presentation(presentation_id, req)
 
     puts "Added a linked Sheets chart with ID: #{presentation_chart_id}"
-    # [END create_sheets_chart]
+    # [END slides_create_sheets_chart]
     response
   end
 
   def refresh_sheets_chart(presentation_id, presentation_chart_id)
-    # [START refresh_sheets_chart]
+    # [START slides_refresh_sheets_chart]
     # Refresh an existing linked Sheets chart embedded in a presentation.
     requests = [{
       refresh_sheets_chart: {
@@ -471,7 +471,7 @@ class FileSnippets
     response = slides_service.batch_update_presentation(presentation_id, req)
 
     puts "Refreshed a linked Sheets chart with ID: #{presentation_chart_id}"
-    # [END refresh_sheets_chart]
+    # [END slides_refresh_sheets_chart]
     response
   end
 end

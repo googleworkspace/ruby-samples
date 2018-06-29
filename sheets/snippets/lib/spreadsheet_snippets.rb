@@ -25,7 +25,7 @@ class SpreadsheetSnippets
   end
 
   def create
-    # [START create]
+    # [START sheets_create]
     spreadsheet = {
       properties: {
         title: 'Sales Report'
@@ -34,12 +34,12 @@ class SpreadsheetSnippets
     spreadsheet = service.create_spreadsheet(spreadsheet,
                                              fields: 'spreadsheetId')
     puts "Spreadsheet ID: #{spreadsheet.spreadsheet_id}"
-    # [END create]
+    # [END sheets_create]
     spreadsheet.spreadsheet_id
   end
 
   def batch_update(spreadsheet_id, title, find, replacement)
-    # [START batch_update]
+    # [START sheets_batch_update]
     requests = []
     # Change the name of sheet ID '0' (the default first sheet on every
     # spreadsheet)
@@ -63,21 +63,21 @@ class SpreadsheetSnippets
     result = service.batch_update_spreadsheet(spreadsheet_id, body, {})
     find_replace_response = result.replies[1].find_replace
     puts "#{find_replace_response.occurrences_changed} replacements made."
-    # [END batch_update]
+    # [END sheets_batch_update]
     result
   end
 
   def get_values(spreadsheet_id, range_name)
-    # [START get_values]
+    # [START sheets_get_values]
     result = service.get_spreadsheet_values(spreadsheet_id, range_name)
     num_rows = result.values ? result.values.length : 0
     puts "#{num_rows} rows received."
-    # [END get_values]
+    # [END sheets_get_values]
     result
   end
 
   def batch_get_values(spreadsheet_id, range)
-    # [START batch_get_values]
+    # [START sheets_batch_get_values]
     range_names = [
       # Range names ...
     ]
@@ -87,12 +87,12 @@ class SpreadsheetSnippets
     result = service.batch_get_spreadsheet_values(spreadsheet_id,
                                                   ranges: range_names)
     puts "#{result.value_ranges.length} ranges retrieved."
-    # [END batch_get_values]
+    # [END sheets_batch_get_values]
     result
   end
 
   def update_values(spreadsheet_id, range_name, value_input_option, _values)
-    # [START update_values]
+    # [START sheets_update_values]
     values = [
       [
         # Cell values ...
@@ -116,12 +116,12 @@ class SpreadsheetSnippets
                                               value_range_object,
                                               value_input_option: value_input_option)
     puts "#{result.updated_cells} cells updated."
-    # [END update_values]
+    # [END sheets_update_values]
     result
   end
 
   def batch_update_values(spreadsheet_id, range_name, value_input_option, _values)
-    # [START batch_update_values]
+    # [START sheets_batch_update_values]
     values = [
       [
         # Cell values ...
@@ -143,12 +143,12 @@ class SpreadsheetSnippets
         value_input_option: value_input_option)
     result = service.batch_update_values(spreadsheet_id, batch_update_values)
     puts "#{result.total_updated_cells} cells updated."
-    # [END batch_update_values]
+    # [END sheets_batch_update_values]
     result
   end
 
   def append_values(spreadsheet_id, range_name, value_input_option, _values)
-    # [START append_values]
+    # [START sheets_append_values]
     values = [
       [
         # Cell values ...
@@ -164,7 +164,7 @@ class SpreadsheetSnippets
                                               value_range,
                                               value_input_option: value_input_option)
     puts "#{result.updates.updated_cells} cells appended."
-    # [END append_values]
+    # [END sheets_append_values]
     result
   end
 
@@ -182,7 +182,7 @@ class SpreadsheetSnippets
                                                              {})
     source_sheet_id = batch_update_response.replies[0].add_sheet.properties.sheet_id
     target_sheet_id = batch_update_response.replies[1].add_sheet.properties.sheet_id
-    # [START pivot_tables]
+    # [START sheets_pivot_tables]
     requests = [{
       update_cells: {
         rows: {
@@ -230,12 +230,12 @@ class SpreadsheetSnippets
       }
     }]
     result = service.batch_update_spreadsheet(spreadsheet_id, body, {})
-    # [END pivot_tables]
+    # [END sheets_pivot_tables]
     result
   end
 
   def conditional_formatting(spreadsheet_id)
-    # [START conditional_formatting]
+    # [START sheets_conditional_formatting]
     my_range = {
       sheet_id: 0,
       start_row_index: 1,
@@ -283,7 +283,7 @@ class SpreadsheetSnippets
     batch_update.requests = requests
     result = service.batch_update_spreadsheet(spreadsheet_id, batch_update)
     puts "#{result.replies.length} cells updated."
-    # [END conditional_formatting]
+    # [END sheets_conditional_formatting]
     result
   end
 end

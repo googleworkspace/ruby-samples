@@ -32,6 +32,7 @@ Temporary Items
 # Secrets
 client_secret.json
 application_credentials.json
-
+credentials.json
 token.yaml
+
 .ruby-version

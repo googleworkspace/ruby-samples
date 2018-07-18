@@ -19,8 +19,8 @@ require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Google People API Ruby Quickstart'.freeze
-CLIENT_SECRETS_PATH = 'client_secret.json'.freeze
-CREDENTIALS_PATH = 'token.yaml'.freeze
+CREDENTIALS_PATH = 'credentials.json'.freeze
+TOKEN_PATH = 'token.yaml'.freeze
 SCOPE = Google::Apis::PeopleV3::AUTH_CONTACTS_READONLY
 
 ##
@@ -30,8 +30,8 @@ SCOPE = Google::Apis::PeopleV3::AUTH_CONTACTS_READONLY
 #
 # @return [Google::Auth::UserRefreshCredentials] OAuth2 credentials
 def authorize
-  client_id = Google::Auth::ClientId.from_file(CLIENT_SECRETS_PATH)
-  token_store = Google::Auth::Stores::FileTokenStore.new(file: CREDENTIALS_PATH)
+  client_id = Google::Auth::ClientId.from_file(CREDENTIALS_PATH)
+  token_store = Google::Auth::Stores::FileTokenStore.new(file: TOKEN_PATH)
   authorizer = Google::Auth::UserAuthorizer.new(client_id, SCOPE, token_store)
   user_id = 'default'
   credentials = authorizer.get_credentials(user_id)

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # [START admin_sdk_reseller_quickstart]
-require 'google/apis/admin_reports_v1'
+require 'google/apis/reseller_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'

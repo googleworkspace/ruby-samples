@@ -21,7 +21,7 @@ OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Google People API Ruby Quickstart'.freeze
 CREDENTIALS_PATH = 'credentials.json'.freeze
 TOKEN_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::PeopleV3::AUTH_CONTACTS_READONLY
+SCOPE = Google::Apis::PeopleV1::AUTH_CONTACTS_READONLY
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials

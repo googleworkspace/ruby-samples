@@ -25,7 +25,7 @@ class DriveSnippets
   end
 
   def upload_basic
-    # [START uploadBasic]
+    # [START drive_upload_basic]
     file_metadata = {
         name: 'photo.jpg'
     }
@@ -34,12 +34,12 @@ class DriveSnippets
                                      upload_source: 'files/photo.jpg',
                                      content_type: 'image/jpeg')
     puts "File Id: #{file.id}"
-    # [END uploadBasic]
+    # [END drive_upload_basic]
     file.id
   end
 
   def upload_revision(id)
-    # [START uploadBasic]
+    # [START drive_upload_revision]
     file_metadata = {}
     file = drive_service.update_file(id,
                                      file_metadata,
@@ -47,12 +47,12 @@ class DriveSnippets
                                      upload_source: 'files/photo.jpg',
                                      content_type: 'image/jpeg')
     puts "File Id: #{file.id}"
-    # [END uploadBasic]
+    # [END drive_upload_revision]
     file.id
   end
 
   def upload_to_folder(real_folder_id)
-    # [START uploadToFolder]
+    # [START drive_upload_to_folder]
     folder_id = '0BwwA4oUTeiV1TGRPeTVjaWRDY1E'
     # [START_EXCLUDE silent]
     folder_id = real_folder_id
@@ -66,12 +66,12 @@ class DriveSnippets
                                      upload_source: 'files/photo.jpg',
                                      content_type: 'image/jpeg')
     puts "File Id: #{file.id}"
-    # [END uploadToFolder]
+    # [END drive_upload_to_folder]
     file.id
   end
 
   def upload_with_conversion
-    # [START uploadWithConversion]
+    # [START drive_upload_with_conversion]
     file_metadata = {
         name: 'My Report',
         mime_type: 'application/vnd.google-apps.spreadsheet'
@@ -81,12 +81,12 @@ class DriveSnippets
                                      upload_source: 'files/report.csv',
                                      content_type: 'text/csv')
     puts "File Id: #{file.id}"
-    # [END uploadWithConversion]
+    # [END drive_upload_with_conversion]
     return file.id
   end
 
   def export_pdf(real_file_id)
-    # [START exportPdf]
+    # [START drive_export_pdf]
     file_id = '1ZdR3L3qP4Bkq8noWLJHSr_iBau0DNT4Kli4SxNc2YEo'
     # [START_EXCLUDE silent]
     file_id = real_file_id
@@ -94,35 +94,35 @@ class DriveSnippets
     content = drive_service.export_file(file_id,
                                         'application/pdf',
                                         download_dest: StringIO.new)
-    # [END exportPdf]
+    # [END drive_export_pdf]
     return content
   end
 
   def download_file(real_file_id)
-    # [START downloadFile]
+    # [START drive_download_file]
     file_id = '0BwwA4oUTeiV1UVNwOHItT0xfa2M'
     # [START_EXCLUDE silent]
     file_id = real_file_id
     # [END_EXCLUDE]
     content = drive_service.get_file(file_id, download_dest: StringIO.new)
-    # [END downloadFile]
+    # [END drive_download_file]
     return content
   end
 
   def create_shortcut
-    # [START createShortcut]
+    # [START drive_create_shortcut]
     file_metadata = {
         name: 'Project plan',
         mime_type: 'application/vnd.google-apps.drive-sdk'
     }
     file = drive_service.create_file(file_metadata, fields: 'id')
     puts "File Id: #{file.id}"
-    # [END createShortcut]
+    # [END drive_create_shortcut]
     return file.id
   end
 
   def touch_file(real_file_id, real_timestamp)
-    # [START touchFile]
+    # [START drive_touch_file]
     file_id = '1sTWaJ_j7PkjzaBWtNc3IzovK5hQf21FbOw9yLeeLPNQ';
     file_metadata = {
         modified_time: DateTime.now
@@ -135,24 +135,24 @@ class DriveSnippets
                                      file_metadata,
                                      fields: 'id, modifiedTime')
     puts "Modified time: #{file.modified_time}"
-    # [END touchFile]
+    # [END drive_touch_file]
     return file.modified_time
   end
 
   def create_folder
-    # [START createFolder]
+    # [START drive_create_folder]
     file_metadata = {
         name: 'Invoices',
         mime_type: 'application/vnd.google-apps.folder'
     }
     file = drive_service.create_file(file_metadata, fields: 'id')
     puts "Folder Id: #{file.id}"
-    # [END createFolder]
+    # [END drive_create_folder]
     return file.id
   end
 
   def move_file_to_folder(real_file_id, real_folder_id)
-    # [START moveFileToFolder]
+    # [START drive_move_file_to_folder]
     file_id = '1sTWaJ_j7PkjzaBWtNc3IzovK5hQf21FbOw9yLeeLPNQ'
     folder_id = '0BwwA4oUTeiV1TGRPeTVjaWRDY1E'
     # [START_EXCLUDE silent]
@@ -168,12 +168,12 @@ class DriveSnippets
                                      add_parents: folder_id,
                                      remove_parents: previous_parents,
                                      fields: 'id, parents')
-    # [END moveFileToFolder]
+    # [END drive_move_file_to_folder]
     return file.parents
   end
 
   def search_files
-    # [START searchFiles]
+    # [START drive_search_files]
     files = drive_service.fetch_all(items: :files) do |page_token|
       drive_service.list_files(q: "mimeType='image/jpeg'",
                                spaces: 'drive',
@@ -184,13 +184,13 @@ class DriveSnippets
       # Process change
       puts "Found file: #{file.name} #{file.id}"
     end
-    # [END searchFiles]
+    # [END drive_search_files]
     return files.to_a
   end
 
   def share_file(real_file_id, real_user, real_domain)
     ids = []
-    # [START shareFile]
+    # [START drive_share_file]
     file_id = '1sTWaJ_j7PkjzaBWtNc3IzovK5hQf21FbOw9yLeeLPNQ'
     # [START_EXCLUDE silent]
     file_id = real_file_id
@@ -232,20 +232,20 @@ class DriveSnippets
                                 fields: 'id',
                                 &callback)
     end
-    # [END shareFile]
+    # [END drive_share_file]
     return ids
   end
 
   def fetch_start_page_token
-    # [START fetchStartPageToken]
+    # [START drive_fetch_start_page_token]
     response = drive_service.get_changes_start_page_token
     puts "Start token: #{response.start_page_token}"
-    # [END fetchStartPageToken]
+    # [END drive_fetch_start_page_token]
     return response.start_page_token
   end
 
   def fetch_changes(saved_start_page_token)
-    # [START fetchChanges]
+    # [START drive_fetch_changes]
     # Begin with our last saved start token for this user or the
     # current token from get_changes_start_page_token()
     page_token = saved_start_page_token;
@@ -262,12 +262,12 @@ class DriveSnippets
       end
       page_token = response.next_page_token
     end
-    # [END fetchChanges]
+    # [END drive_fetch_changes]
     return saved_start_page_token
   end
 
   def upload_app_data
-    # [START uploadAppData]
+    # [START drive_upload_app_data]
     file_metadata = {
         name: 'config.json',
         parents: ['appDataFolder']
@@ -277,12 +277,12 @@ class DriveSnippets
                                      upload_source: 'files/config.json',
                                      content_type: 'application/json')
     puts "File Id: #{file.id}"
-    # [END uploadAppData]
+    # [END drive_upload_app_data]
     file.id
   end
 
   def list_app_data
-    # [START listAppData]
+    # [START drive_list_app_data]
     response = drive_service.list_files(spaces: 'appDataFolder',
                                         fields: 'nextPageToken, files(id, name)',
                                         page_size: 10)
@@ -290,20 +290,20 @@ class DriveSnippets
       # Process change
       puts "Found file: #{file.name} #{file.id}"
     end
-    # [END listAppData]
+    # [END drive_list_app_data]
     return response.files
   end
 
   def fetch_app_data_folder
-    # [START fetchAppDataFolder]
+    # [START drive_fetch_app_data_folder]
     file = drive_service.get_file('appDataFolder', fields: 'id')
     puts "Folder Id: #{file.id}"
-    # [END fetchAppDataFolder]
+    # [END drive_fetch_app_data_folder]
     file.id
   end
 
   def create_team_drive
-    # [START createTeamDrive]
+    # [START drive_create_team_drive]
     team_drive_metadata = {
         name: 'Project Resources'
     }
@@ -312,12 +312,12 @@ class DriveSnippets
                                                 team_drive_metadata,
                                                 fields: 'id')
     puts "Team Drive Id: #{team_drive.id}"
-    # [END createTeamDrive]
+    # [END drive_create_team_drive]
     team_drive.id
   end
 
   def recover_team_drives(real_user)
-    # [START recoverTeamDrives]
+    # [START drive_recover_team_drives]
     # Find all Team Drives without an organizer and add one.
     # Note: This example does not capture all cases. Team Drives
     # that have an empty group as the sole organizer, or an
@@ -351,7 +351,7 @@ class DriveSnippets
                                                    fields: 'id')
       puts "Added organizer permission: {permission.id}"
     end
-    # [END recoverTeamDrives]
+    # [END drive_recover_team_drives]
     return team_drives.to_a
   end
 end

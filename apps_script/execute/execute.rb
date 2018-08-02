@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START apps_script_execute]
+# [START apps_script_api_execute]
 SCRIPT_ID = 'ENTER_YOUR_SCRIPT_ID_HERE'.freeze
 
 # Create an execution request object.
@@ -58,4 +58,4 @@ rescue Google::Apis::ClientError
   # The API encountered a problem before the script started executing.
   puts 'Error calling API!'
 end
-# [END apps_script_execute]
+# [END apps_script_api_execute]

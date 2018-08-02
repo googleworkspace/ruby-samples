@@ -25,7 +25,7 @@ class TeamDriveSnippets
   end
 
   def create_team_drive
-    # [START createTeamDrive]
+    # [START drive_create_team_drive]
     team_drive_metadata = {
         name: 'Project Resources'
     }
@@ -34,12 +34,12 @@ class TeamDriveSnippets
                                                 team_drive_metadata,
                                                 fields: 'id')
     puts "Team Drive Id: #{team_drive.id}"
-    # [END createTeamDrive]
+    # [END drive_create_team_drive]
     team_drive.id
   end
 
   def recover_team_drives(real_user)
-    # [START recoverTeamDrives]
+    # [START drive_recover_team_drives]
     # Find all Team Drives without an organizer and add one.
     # Note: This example does not capture all cases. Team Drives
     # that have an empty group as the sole organizer, or an
@@ -73,7 +73,7 @@ class TeamDriveSnippets
                                                    fields: 'id')
       puts "Added organizer permission: {permission.id}"
     end
-    # [END recoverTeamDrives]
+    # [END drive_recover_team_drives]
     return team_drives.to_a
   end
 end

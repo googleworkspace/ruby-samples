@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# [START apps_script_quickstart]
+# [START apps_script_api_quickstart]
 require 'google/apis/script_v1'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -90,4 +90,4 @@ rescue Google::Apis::ClientError
 rescue Google::Apis::AuthorizationError
   puts 'Authorization is required.'
 end
-# [END apps_script_quickstart]
+# [END apps_script_api_quickstart]

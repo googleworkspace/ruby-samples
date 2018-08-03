@@ -48,7 +48,7 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::PeopleV1::PeopleService.new
+service = Google::Apis::PeopleV1::PeopleServiceService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 

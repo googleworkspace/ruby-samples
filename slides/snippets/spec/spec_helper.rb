@@ -72,6 +72,7 @@ module TestHelpers
   def cleanup_files
     @files_to_delete ||= []
     return if @files_to_delete.empty?
+
     drive_service.batch do
       @files_to_delete.each do |file_id|
         puts "Deleting file #{file_id}"

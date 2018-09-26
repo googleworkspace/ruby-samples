@@ -61,6 +61,7 @@ response.activities.each do |activity|
   user = event.user
   target = event.target
   next if user.nil? || target.nil?
+
   time = Time.at(event.event_time_millis.to_i / 1000)
   puts "#{time}: #{user.name} #{event.primary_event_type} #{target.name} #{target.mime_type}"
 end

@@ -52,42 +52,29 @@ service = Google::Apis::ScriptV1::ScriptService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-begin
-  # Initialize the API
-  service = Google::Apis::ScriptV1::ScriptService.new
-  service.client_options.application_name = APPLICATION_NAME
-  service.authorization = authorize
+# Make the API request.
+request = Google::Apis::ScriptV1::CreateProjectRequest.new(
+  title: 'My Script'
+)
+resp = service.create_project(request)
 
-  # Make the API request.
-  request = Google::Apis::ScriptV1::CreateProjectRequest.new(
-    title: 'My Script'
-  )
-  resp = service.create_project(request)
-
-  script_id = resp.script_id
-  content = Google::Apis::ScriptV1::Content.new(
-    files: [
-      Google::Apis::ScriptV1::File.new(
-        name: 'hello',
-        type: 'SERVER_JS',
-        source: "function helloWorld() {\n  console.log('Hello, world!');\n}"
-      ),
-      Google::Apis::ScriptV1::File.new(
-        name: 'appsscript',
-        type: 'JSON',
-        source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \
-          \"CLOUD\"}"
-      )
-    ],
-    script_id: script_id
-  )
-  service.update_project_content(script_id, content)
-  puts "https://script.google.com/d/#{script_id}/edit"
-rescue Google::Apis::ServerError
-  puts 'An error occurred on the server and the request can be retried.'
-rescue Google::Apis::ClientError
-  puts 'The request is invalid and should not be retried without modification.'
-rescue Google::Apis::AuthorizationError
-  puts 'Authorization is required.'
-end
+script_id = resp.script_id
+content = Google::Apis::ScriptV1::Content.new(
+  files: [
+    Google::Apis::ScriptV1::File.new(
+      name: 'hello',
+      type: 'SERVER_JS',
+      source: "function helloWorld() {\n  console.log('Hello, world!');\n}"
+    ),
+    Google::Apis::ScriptV1::File.new(
+      name: 'appsscript',
+      type: 'JSON',
+      source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \
+        \"CLOUD\"}"
+    )
+  ],
+  script_id: script_id
+)
+service.update_project_content(script_id, content)
+puts "https://script.google.com/d/#{script_id}/edit"
 # [END apps_script_api_quickstart]

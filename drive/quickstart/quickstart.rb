@@ -51,13 +51,13 @@ def authorize
 end
 
 # Initialize the API
-service = Google::Apis::DriveV3::DriveService.new
-service.client_options.application_name = APPLICATION_NAME
-service.authorization = authorize
+drive_service = Google::Apis::DriveV3::DriveService.new
+drive_service.client_options.application_name = APPLICATION_NAME
+drive_service.authorization = authorize
 
 # List the 10 most recently modified files.
-response = service.list_files(page_size: 10,
-                              fields: 'nextPageToken, files(id, name)')
+response = drive_service.list_files(page_size: 10,
+                                    fields: 'nextPageToken, files(id, name)')
 puts 'Files:'
 puts 'No files found' if response.files.empty?
 response.files.each do |file|

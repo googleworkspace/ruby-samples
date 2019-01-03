@@ -193,19 +193,19 @@ class SpreadsheetSnippets
                   sheet_id: source_sheet_id,
                   start_row_index: 0,
                   start_column_index: 0,
-                  end_row_index: 101,
-                  end_column_index: 8
+                  end_row_index: 20,
+                  end_column_index: 7
                 },
                 rows: [
                   {
-                    source_column_offset: 6,
+                    source_column_offset: 1,
                     show_totals: true,
                     sort_order: 'ASCENDING',
                   },
                 ],
                 columns: [
                   {
-                    source_column_offset: 3,
+                    source_column_offset: 4,
                     sort_order: 'ASCENDING',
                     show_totals: true,
                   }
@@ -213,7 +213,7 @@ class SpreadsheetSnippets
                 values: [
                   {
                     summarize_function: 'COUNTA',
-                    source_column_offset: 3
+                    source_column_offset: 4
                   }
                 ],
                 value_layout: 'HORIZONTAL'

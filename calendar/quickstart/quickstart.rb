@@ -62,7 +62,7 @@ response = service.list_events(calendar_id,
                                max_results: 10,
                                single_events: true,
                                order_by: 'startTime',
-                               time_min: DateTime.now)
+                               time_min: DateTime.now.rfc3339)
 puts 'Upcoming events:'
 puts 'No upcoming events found' if response.items.empty?
 response.items.each do |event|

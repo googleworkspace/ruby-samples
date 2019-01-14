@@ -15,6 +15,7 @@
 require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
+require 'date'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
@@ -61,7 +62,7 @@ response = service.list_events(calendar_id,
                                max_results: 10,
                                single_events: true,
                                order_by: 'startTime',
-                               time_min: Time.now.iso8601)
+                               time_min: DateTime.now)
 puts 'Upcoming events:'
 puts 'No upcoming events found' if response.items.empty?
 response.items.each do |event|

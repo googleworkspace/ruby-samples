@@ -18,7 +18,7 @@ require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'G Suite Activity API Ruby Quickstart'.freeze
+APPLICATION_NAME = 'Drive Activity API Ruby Quickstart'.freeze
 CREDENTIALS_PATH = 'credentials.json'.freeze
 # The file token.yaml stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first

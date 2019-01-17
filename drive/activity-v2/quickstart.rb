@@ -51,67 +51,67 @@ def authorize
 end
 
 # Returns a string representation of the first elements in a list.
-def truncated(array, limit=2)
-  contents = array[0...limit].join(", ")
-  more = array.length <= limit ? "" : ", ..."
-  return "[#{contents}#{more}]"
+def truncated(array, limit = 2)
+  contents = array[0...limit].join(', ')
+  more = array.length <= limit ? '' : ', ...'
+  "[#{contents}#{more}]"
 end
 
 # Returns the name of a set property in an object, or else "unknown".
-def getOneOf(obj)
-  for var in obj.instance_variables
+def get_one_of(obj)
+  obj.instance_variables.each do |var|
     return var[/^@?(.*)/,1]
   end
-  return "unknown"
+  'unknown'
 end
 
 # Returns a time associated with an activity.
-def getTimeInfo(activity)
-  if not activity.timestamp.nil?
-    return "   " + activity.timestamp
-  elsif not activity.time_range.nil?
-    return "..." + activity.time_range.end_time
+def get_time_info(activity)
+  if !activity.timestamp.nil?
+    return '   ' + activity.timestamp
+  elsif !activity.time_range.nil?
+    return '...' + activity.time_range.end_time
   end
-  return "unknown"
+  'unknown'
 end
 
 # Returns the type of action.
-def getActionInfo(actionDetail)
-  return getOneOf(actionDetail)
+def get_action_info(action_detail)
+  get_one_of(action_detail)
 end
 
 # Returns user information, or the type of user if not a known user.
-def getUserInfo(user)
-  if not user.known_user.nil?
+def get_user_info(user)
+  unless user.known_user.nil?
     knownUser = user.known_user
     isMe = knownUser.is_current_user || false
-    return isMe ? "people/me" : knownUser.person_name
+    return isMe ? 'people/me' : knownUser.person_name
   end
-  return getOneOf(user)
+  get_one_of(user)
 end
 
 # Returns actor information, or the type of actor if not a user.
-def getActorInfo(actor)
-  if not actor.user.nil?
-    return getUserInfo(actor.user)
+def get_actor_info(actor)
+  unless actor.user.nil?
+    return get_user_info(actor.user)
   end
-  return getOneOf(actor)
+  get_one_of(actor)
 end
 
 # Returns the type of a target and an associated title.
-def getTargetInfo(target)
-  if not target.drive_item.nil?
-    title = target.drive_item.title || "unknown"
+def get_target_info(target)
+  if !target.drive_item.nil?
+    title = target.drive_item.title || 'unknown'
     return %(driveItem:"#{title}")
-  elsif not target.team_drive.nil?
-    title = target.team_drive.title || "unknown"
+  elsif !target.team_drive.nil?
+    title = target.team_drive.title || 'unknown'
     return %(teamDrive:"#{title}")
-  elsif not target.file_comment.nil?
+  elsif !target.file_comment.nil?
     parent = target.file_comment.parent
-    title = parent.nil? ? "unknown" : (parent.title || "unknown")
+    title = parent.nil? ? 'unknown' : (parent.title || 'unknown')
     return %(fileComment:"#{title}")
   end
-  return "#{getOneOf(target)}:unknown"
+  "#{get_one_of(target)}:unknown"
 end
 
 # Initialize the API
@@ -123,10 +123,10 @@ response = service.query_drive_activity(request)
 puts 'Recent activity:'
 puts 'No activity.' if response.activities.empty?
 response.activities.each do |activity|
-  time = getTimeInfo(activity)
-  action = getOneOf(activity.primary_action_detail)
-  actors = activity.actors.map { |actor| getActorInfo(actor) }
-  targets = activity.targets.map { |target| getTargetInfo(target) }
+  time = get_time_info(activity)
+  action = get_action_info(activity.primary_action_detail)
+  actors = activity.actors.map { |actor| get_actor_info(actor) }
+  targets = activity.targets.map { |target| get_target_info(target) }
   puts "#{time}: #{truncated(actors)}, #{action}, #{truncated(targets)}"
 end
 # [END drive_activity_v2_quickstart]

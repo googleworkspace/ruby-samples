@@ -60,18 +60,15 @@ end
 # Returns the name of a set property in an object, or else "unknown".
 def get_one_of(obj)
   obj.instance_variables.each do |var|
-    return var[/^@?(.*)/,1]
+    return var[/^@?(.*)/, 1]
   end
   'unknown'
 end
 
 # Returns a time associated with an activity.
 def get_time_info(activity)
-  if !activity.timestamp.nil?
-    return '   ' + activity.timestamp
-  elsif !activity.time_range.nil?
-    return '...' + activity.time_range.end_time
-  end
+  return activity.timestamp unless activity.timestamp.nil?
+  return activity.time_range.end_time unless activity.time_range.nil?
   'unknown'
 end
 
@@ -83,18 +80,17 @@ end
 # Returns user information, or the type of user if not a known user.
 def get_user_info(user)
   unless user.known_user.nil?
-    knownUser = user.known_user
-    isMe = knownUser.is_current_user || false
-    return isMe ? 'people/me' : knownUser.person_name
+    known_user = user.known_user
+    is_me = known_user.is_current_user || false
+    return is_me ? 'people/me' : known_user.person_name
   end
   get_one_of(user)
 end
 
 # Returns actor information, or the type of actor if not a user.
 def get_actor_info(actor)
-  unless actor.user.nil?
-    return get_user_info(actor.user)
-  end
+  return get_user_info(actor.user) unless actor.user.nil?
+
   get_one_of(actor)
 end
 

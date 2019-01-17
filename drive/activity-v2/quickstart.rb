@@ -69,6 +69,7 @@ end
 def get_time_info(activity)
   return activity.timestamp unless activity.timestamp.nil?
   return activity.time_range.end_time unless activity.time_range.nil?
+
   'unknown'
 end
 

@@ -4,7 +4,7 @@ Complete the steps described in the [Gmail Ruby Quickstart](https://developers.g
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

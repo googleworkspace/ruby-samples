@@ -4,7 +4,7 @@ Complete the steps described in the [Google Drive Ruby Quickstart](https://devel
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

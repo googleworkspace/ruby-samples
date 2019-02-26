@@ -4,7 +4,7 @@ Complete the steps described in the [Google Sheets Ruby Quickstart](https://deve
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

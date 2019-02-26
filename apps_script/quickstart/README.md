@@ -4,7 +4,7 @@ Complete the steps described in the [Google Apps Script Ruby Quickstart](https:/
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

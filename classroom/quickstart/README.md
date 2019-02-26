@@ -4,7 +4,7 @@ Complete the steps described in the [Google Classroom Ruby Quickstart](https://d
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

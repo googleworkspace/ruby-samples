@@ -4,7 +4,7 @@ Complete the steps described in the [Google Calendar Ruby Quickstart](https://de
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

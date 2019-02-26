@@ -4,7 +4,7 @@ Complete the steps described in the [Google People API Ruby Quickstart](https://
 
 ## Install
 
-`gem install google-api-client`
+`bundle install`
 
 ## Run
 

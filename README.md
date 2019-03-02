@@ -22,6 +22,10 @@ A collection of samples that demonstrate how to call G Suite APIs in Ruby.
 
 - [Quickstart](https://developers.google.com/classroom/quickstart/ruby)
 
+### Docs
+
+- [Quickstart](https://developers.google.com/docs/api/quickstart/ruby)
+
 ### Drive V3
 
 - [Quickstart](https://developers.google.com/drive/v3/web/quickstart/ruby)

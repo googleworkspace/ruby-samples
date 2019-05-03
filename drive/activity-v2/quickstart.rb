@@ -100,9 +100,9 @@ def get_target_info(target)
   if !target.drive_item.nil?
     title = target.drive_item.title || 'unknown'
     return %(driveItem:"#{title}")
-  elsif !target.team_drive.nil?
-    title = target.team_drive.title || 'unknown'
-    return %(teamDrive:"#{title}")
+  elsif !target.drive.nil?
+    title = target.drive.title || 'unknown'
+    return %(drive:"#{title}")
   elsif !target.file_comment.nil?
     parent = target.file_comment.parent
     title = parent.nil? ? 'unknown' : (parent.title || 'unknown')

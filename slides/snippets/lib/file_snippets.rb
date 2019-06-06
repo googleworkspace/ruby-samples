@@ -34,10 +34,10 @@ class FileSnippets
     @sheets_service
   end
 
-  def create_presentation(title='Title')
+  def create_presentation(title = 'Title')
     # [START slides_create_presentation]
     body = Google::Apis::SlidesV1::Presentation.new
-    body.title =  title
+    body.title = title
     presentation = slides_service.create_presentation(body)
     puts "Created presentation with ID: #{presentation.presentation_id}"
     # [END slides_create_presentation]
@@ -60,8 +60,8 @@ class FileSnippets
     body = Google::Apis::SlidesV1::Presentation.new
     requests = [{
       create_slide: {
-        object_id_prop: page_id,
-        insertion_index: '1',
+        object_id_prop:         page_id,
+        insertion_index:        '1',
         slide_layout_reference: {
           predefined_layout: 'TITLE_AND_TWO_COLUMNS'
         }
@@ -86,43 +86,44 @@ class FileSnippets
     element_id = 'MyTextBox_01'
     pt350 = {
       magnitude: '350',
-      unit: 'PT'
+      unit:      'PT'
     }
     requests = [{
       create_shape: {
-        object_id_prop: element_id,
-        shape_type: 'TEXT_BOX',
+        object_id_prop:     element_id,
+        shape_type:         'TEXT_BOX',
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: pt350,
-            width: pt350
+            width:  pt350
           },
-          transform: {
-            scale_x: '1',
-            scale_y: '1',
+          transform:      {
+            scale_x:     '1',
+            scale_y:     '1',
             translate_x: '350',
             translate_y: '100',
-            unit: 'PT'
+            unit:        'PT'
           }
         }
       }
     },
 
-    # Insert text into the box, using the supplied element ID.
-    {
-      insert_text: {
-        object_id_prop: element_id,
-        insertion_index: 0,
-        text: 'New Box Text Inserted!'
-      }
-    }]
+                # Insert text into the box, using the supplied element ID.
+                {
+                  insert_text: {
+                    object_id_prop:  element_id,
+                    insertion_index: 0,
+                    text:            'New Box Text Inserted!'
+                  }
+                }]
 
     # Execute the request.
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(
       presentation_id,
-      req)
+      req
+    )
     create_shape_response = response.replies[0].create_shape
     puts "Created textbox with ID: #{create_shape_response.object_id}"
     # [END slides_create_textbox_with_text]
@@ -142,24 +143,24 @@ class FileSnippets
     image_id = 'MyImage_01'
     emu4M = {
       magnitude: '4000000',
-      unit: 'EMU'
+      unit:      'EMU'
     }
     requests << {
       create_image: {
-        object_id_prop: image_id,
-        url: IMAGE_URL,
+        object_id_prop:     image_id,
+        url:                IMAGE_URL,
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: emu4M,
-            width: emu4M
+            width:  emu4M
           },
-          transform: {
-            scale_x: '1',
-            scale_y: '1',
+          transform:      {
+            scale_x:     '1',
+            scale_y:     '1',
             translate_x: '100000',
             translate_y: '100000',
-            unit: 'EMU'
+            unit:        'EMU'
           }
         }
       }
@@ -169,7 +170,8 @@ class FileSnippets
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(
       presentation_id,
-      req)
+      req
+    )
     create_image_response = response.replies[0].create_image
     puts "Created image with ID: #{create_image_response.object_id}"
     # [END slides_create_image]
@@ -183,7 +185,8 @@ class FileSnippets
     data_range_notation = 'Customers!A2:M6'
     sheets_response = sheets_service.get_spreadsheet_values(
       data_spreadsheet_id,
-      data_range_notation)
+      data_range_notation
+    )
     values = sheets_response.values
 
     # For each record, create a new merged presentation.
@@ -203,26 +206,26 @@ class FileSnippets
       requests = [] << {
         replace_all_text: {
           contains_text: {
-            text: '{{customer-name}}',
+            text:       '{{customer-name}}',
             match_case: true
           },
-          replace_text: customer_name
+          replace_text:  customer_name
         }
       } << {
         replace_all_text: {
           contains_text: {
-            text: '{{case-description}}',
+            text:       '{{case-description}}',
             match_case: true
           },
-          replace_text: case_description
+          replace_text:  case_description
         }
       } << {
         replace_all_text: {
           contains_text: {
-            text: '{{total-portfolio}}',
+            text:       '{{total-portfolio}}',
             match_case: true
           },
-          replace_text: total_portfolio
+          replace_text:  total_portfolio
         }
       }
 
@@ -230,7 +233,8 @@ class FileSnippets
       req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
       response = slides_service.batch_update_presentation(
         presentation_copy_id,
-        req)
+        req
+      )
       # [START_EXCLUDE silent]
       responses << response
       # [END_EXCLUDE silent]
@@ -261,19 +265,19 @@ class FileSnippets
     # Create the image merge (replace_all_shapes_with_image) requests.
     requests = [] << {
       replace_all_shapes_with_image: {
-        image_url: logo_url,
+        image_url:      logo_url,
         replace_method: 'CENTER_INSIDE',
-        contains_text: {
-          text: '{{company-logo}}',
+        contains_text:  {
+          text:       '{{company-logo}}',
           match_case: true
         }
       }
     } << {
       replace_all_shapes_with_image: {
-        image_url: customer_graphic_url,
+        image_url:      customer_graphic_url,
         replace_method: 'CENTER_INSIDE',
-        contains_text: {
-          text: '{{customer-graphic}}',
+        contains_text:  {
+          text:       '{{customer-graphic}}',
           match_case: true
         }
       }
@@ -283,7 +287,8 @@ class FileSnippets
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(
       presentation_copy_id,
-      req)
+      req
+    )
 
     # Count the number of replacements made.
     num_replacements = 0
@@ -302,15 +307,15 @@ class FileSnippets
     requests = [] << {
       delete_text: {
         object_id_prop: shape_id,
-        text_range: {
+        text_range:     {
           type: 'ALL'
         }
       }
     } << {
       insert_text: {
-        object_id_prop: shape_id,
+        object_id_prop:  shape_id,
         insertion_index: 0,
-        text: replacement_text
+        text:            replacement_text
       }
     }
 
@@ -318,7 +323,8 @@ class FileSnippets
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
     response = slides_service.batch_update_presentation(
       presentation_id,
-      req)
+      req
+    )
     puts "Replaced text in shape with ID: #{shape_id}"
     # [END slides_simple_text_replace]
     response
@@ -332,57 +338,57 @@ class FileSnippets
     requests = [] << {
       update_text_style: {
         object_id_prop: shape_id,
-        text_range: {
-          type: 'FIXED_RANGE',
+        text_range:     {
+          type:        'FIXED_RANGE',
           start_index: 0,
-          end_index: 5
+          end_index:   5
         },
-        style: {
-          bold: true,
+        style:          {
+          bold:   true,
           italic: true
         },
-        fields: 'bold,italic'
+        fields:         'bold,italic'
       }
     } << {
       update_text_style: {
         object_id_prop: shape_id,
-        text_range: {
-          type: 'FIXED_RANGE',
+        text_range:     {
+          type:        'FIXED_RANGE',
           start_index: 5,
-          end_index: 10
+          end_index:   10
         },
-        style: {
-          font_family: 'Times New Roman',
-          font_size: {
+        style:          {
+          font_family:      'Times New Roman',
+          font_size:        {
             magnitude: 14,
-            unit: 'PT'
+            unit:      'PT'
           },
           foreground_color: {
             opaque_color: {
               rgb_color: {
-                blue: 1.0,
+                blue:  1.0,
                 green: 0.0,
-                red: 0.0
+                red:   0.0
               }
             }
           }
         },
-        fields: 'foreground_color,font_family,font_size'
+        fields:         'foreground_color,font_family,font_size'
       }
     } << {
       update_text_style: {
         object_id_prop: shape_id,
-        text_range: {
-          type: 'FIXED_RANGE',
+        text_range:     {
+          type:        'FIXED_RANGE',
           start_index: 10,
-          end_index: 15
+          end_index:   15
         },
-        style: {
+        style:          {
           link: {
             url: 'www.example.com'
           }
         },
-        fields: 'link'
+        fields:         'link'
       }
     }
 
@@ -400,10 +406,10 @@ class FileSnippets
     requests = [] << {
       create_paragraph_bullets: {
         object_id_prop: shape_id,
-        text_range: {
+        text_range:     {
           type: 'ALL'
         },
-        bulletPreset: 'BULLET_ARROW_DIAMOND_DISC'
+        bulletPreset:   'BULLET_ARROW_DIAMOND_DISC'
       }
     }
 
@@ -422,27 +428,27 @@ class FileSnippets
     # chart to be refreshed if the Sheets version is updated.
     emu4M = {
       magnitude: 4000000,
-      unit: 'EMU'
+      unit:      'EMU'
     }
     presentation_chart_id = 'my_embedded_chart'
     requests = [{
       create_sheets_chart: {
-        object_id_prop: presentation_chart_id,
-        spreadsheet_id: spreadsheet_id,
-        chart_id: sheet_chart_id,
-        linking_mode: 'LINKED',
+        object_id_prop:     presentation_chart_id,
+        spreadsheet_id:     spreadsheet_id,
+        chart_id:           sheet_chart_id,
+        linking_mode:       'LINKED',
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: emu4M,
-            width: emu4M
+            width:  emu4M
           },
-          transform: {
-            scale_x: 1,
-            scale_y: 1,
+          transform:      {
+            scale_x:     1,
+            scale_y:     1,
             translate_x: 100000,
             translate_y: 100000,
-            unit: 'EMU'
+            unit:        'EMU'
           }
         }
       }

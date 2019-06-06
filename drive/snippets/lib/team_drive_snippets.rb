@@ -27,7 +27,7 @@ class TeamDriveSnippets
   def create_team_drive
     # [START drive_create_team_drive]
     team_drive_metadata = {
-        name: 'Project Resources'
+      name: 'Project Resources'
     }
     request_id = SecureRandom.uuid
     team_drive = drive_service.create_teamdrive(request_id,
@@ -48,9 +48,9 @@ class TeamDriveSnippets
     # and the associated permissions and groups to ensure an active
     # organizer is assigned.
     new_organizer_permission = {
-        type: 'user',
-        role: 'organizer',
-        email_address: 'user@example.com'
+      type:          'user',
+      role:          'organizer',
+      email_address: 'user@example.com'
     }
     # [START_EXCLUDE silent]
     new_organizer_permission[:email_address] = real_user
@@ -58,10 +58,11 @@ class TeamDriveSnippets
 
     team_drives = drive_service.fetch_all(items: :team_drives) do |page_token|
       drive_service.list_teamdrives(
-          q: 'organizerCount = 0',
-          fields: 'nextPageToken, teamDrives(id, name)',
-          use_domain_admin_access: true,
-          page_token: page_token)
+        q:                       'organizerCount = 0',
+        fields:                  'nextPageToken, teamDrives(id, name)',
+        use_domain_admin_access: true,
+        page_token:              page_token
+      )
     end
 
     for team_drive in team_drives
@@ -69,8 +70,8 @@ class TeamDriveSnippets
       permission = drive_service.create_permission(team_drive.id,
                                                    new_organizer_permission,
                                                    use_domain_admin_access: true,
-                                                   supports_team_drives: true,
-                                                   fields: 'id')
+                                                   supports_team_drives:    true,
+                                                   fields:                  'id')
       puts "Added organizer permission: {permission.id}"
     end
     # [END drive_recover_team_drives]

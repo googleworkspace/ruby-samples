@@ -2,6 +2,7 @@
 inherit_gem:
   google-style: google-style.yml
 
+# TODO: Remove G Suite specific rules
 # G Suite Ruby Samples rules
 AllCops:
   TargetRubyVersion: 2.3

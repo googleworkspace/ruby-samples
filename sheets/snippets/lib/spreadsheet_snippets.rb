@@ -15,7 +15,6 @@
 require 'google/apis/sheets_v4'
 
 class SpreadsheetSnippets
-
   def initialize(service)
     @service = service
   end
@@ -44,22 +43,22 @@ class SpreadsheetSnippets
     # Change the name of sheet ID '0' (the default first sheet on every
     # spreadsheet)
     requests.push({
-      update_sheet_properties: {
-        properties: {sheet_id: 0, title: 'New Sheet Name'},
-        fields: 'title'
-      }
-    })
+                    update_sheet_properties: {
+                      properties: { sheet_id: 0, title: 'New Sheet Name' },
+                      fields:     'title'
+                    }
+                  })
     # Find and replace text
     requests.push({
-      find_replace: {
-        find: find,
-        replacement: replacement,
-        all_sheets: true
-      }
-    })
+                    find_replace: {
+                      find:        find,
+                      replacement: replacement,
+                      all_sheets:  true
+                    }
+                  })
     # Add additional requests (operations) ...
 
-    body = {requests: requests}
+    body = { requests: requests }
     result = service.batch_update_spreadsheet(spreadsheet_id, body, {})
     find_replace_response = result.replies[1].find_replace
     puts "#{find_replace_response.occurrences_changed} replacements made."
@@ -104,12 +103,12 @@ class SpreadsheetSnippets
     # [END_EXCLUDE]
     data = [
       {
-        range: range_name,
+        range:  range_name,
         values: values
       },
       # Additional ranges to update ...
     ]
-    value_range_object = Google::Apis::SheetsV4::ValueRange.new(range: range_name,
+    value_range_object = Google::Apis::SheetsV4::ValueRange.new(range:  range_name,
                                                                 values: values)
     result = service.update_spreadsheet_value(spreadsheet_id,
                                               range_name,
@@ -133,14 +132,15 @@ class SpreadsheetSnippets
     # [END_EXCLUDE]
     data = [
       {
-        range: range_name,
+        range:  range_name,
         values: values
       },
       # Additional ranges to update ...
     ]
     batch_update_values = Google::Apis::SheetsV4::BatchUpdateValuesRequest.new(
-        data: data,
-        value_input_option: value_input_option)
+      data:               data,
+      value_input_option: value_input_option
+    )
     result = service.batch_update_values(spreadsheet_id, batch_update_values)
     puts "#{result.total_updated_cells} cells updated."
     # [END sheets_batch_update_values]
@@ -185,34 +185,34 @@ class SpreadsheetSnippets
     # [START sheets_pivot_tables]
     requests = [{
       update_cells: {
-        rows: {
-           values: [
+        rows:   {
+          values: [
             {
               pivot_table: {
-                source: {
-                  sheet_id: source_sheet_id,
-                  start_row_index: 0,
+                source:       {
+                  sheet_id:           source_sheet_id,
+                  start_row_index:    0,
                   start_column_index: 0,
-                  end_row_index: 20,
-                  end_column_index: 7
+                  end_row_index:      20,
+                  end_column_index:   7
                 },
-                rows: [
+                rows:         [
                   {
                     source_column_offset: 1,
-                    show_totals: true,
-                    sort_order: 'ASCENDING',
+                    show_totals:          true,
+                    sort_order:           'ASCENDING',
                   },
                 ],
-                columns: [
+                columns:      [
                   {
                     source_column_offset: 4,
-                    sort_order: 'ASCENDING',
-                    show_totals: true,
+                    sort_order:           'ASCENDING',
+                    show_totals:          true,
                   }
                 ],
-                values: [
+                values:       [
                   {
-                    summarize_function: 'COUNTA',
+                    summarize_function:   'COUNTA',
                     source_column_offset: 4
                   }
                 ],
@@ -221,9 +221,9 @@ class SpreadsheetSnippets
             }
           ]
         },
-        start: {
-          sheet_id: target_sheet_id,
-          row_index: 0,
+        start:  {
+          sheet_id:     target_sheet_id,
+          row_index:    0,
           column_index: 0
         },
         fields: 'pivotTable'
@@ -237,23 +237,23 @@ class SpreadsheetSnippets
   def conditional_formatting(spreadsheet_id)
     # [START sheets_conditional_formatting]
     my_range = {
-      sheet_id: 0,
-      start_row_index: 1,
-      end_row_index: 11,
+      sheet_id:           0,
+      start_row_index:    1,
+      end_row_index:      11,
       start_column_index: 0,
-      end_column_index: 4
+      end_column_index:   4
     }
     requests = [{
       add_conditional_format_rule: {
-        rule: {
-          ranges: [my_range],
+        rule:  {
+          ranges:       [my_range],
           boolean_rule: {
             condition: {
-              type: 'CUSTOM_FORMULA',
+              type:   'CUSTOM_FORMULA',
               values: [{ user_entered_value: '=GT($D2,median($D$2:$D$11))' }]
             },
-            format: {
-              text_format: { foreground_color: { red: 0.8 }}
+            format:    {
+              text_format: { foreground_color: { red: 0.8 } }
             }
           }
         },
@@ -261,14 +261,14 @@ class SpreadsheetSnippets
       }
     }, {
       add_conditional_format_rule: {
-        rule: {
-          ranges: [my_range],
+        rule:  {
+          ranges:       [my_range],
           boolean_rule: {
             condition: {
-              type: 'CUSTOM_FORMULA',
+              type:   'CUSTOM_FORMULA',
               values: [{ user_entered_value: '=LT($D2,median($D$2:$D$11))' }]
             },
-            format: {
+            format:    {
               background_color: { red: 1, green: 0.4, blue: 0.4 }
             }
           }

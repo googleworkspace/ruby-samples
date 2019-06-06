@@ -1,4 +1,8 @@
-# G Suite Ruby Samples rules
+# Google ruby rules
+inherit_gem:
+  google-style: google-style.yml
+  
+# G Suite ruby samples rules
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:

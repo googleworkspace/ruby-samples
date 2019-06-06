@@ -57,7 +57,7 @@ drive_service.authorization = authorize
 
 # List the 10 most recently modified files.
 response = drive_service.list_files(page_size: 10,
-                                    fields: 'nextPageToken, files(id, name)')
+                                    fields:    'nextPageToken, files(id, name)')
 puts 'Files:'
 puts 'No files found' if response.files.empty?
 response.files.each do |file|

@@ -58,7 +58,7 @@ service.authorization = authorize
 # Fetch the next 10 events for the user
 response = service.list_person_connections(
   'people/me',
-  page_size: 10,
+  page_size:     10,
   person_fields: 'names,emailAddresses'
 )
 

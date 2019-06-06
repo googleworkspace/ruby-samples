@@ -70,19 +70,19 @@ module TestHelpers
     file_metadata = { name: 'photo.jpg' }
     file = drive_service.create_file(file_metadata,
                                      upload_source: 'files/photo.jpg',
-                                     content_type: 'image/jpeg')
+                                     content_type:  'image/jpeg')
     delete_file_on_cleanup(file.id)
     file.id
   end
 
   def create_test_document
     file_metadata = {
-      name: 'Test Document',
+      name:      'Test Document',
       mime_type: 'application/vnd.google-apps.document'
     }
     file = drive_service.create_file(file_metadata,
                                      upload_source: 'files/document.txt',
-                                     content_type: 'text/plain')
+                                     content_type:  'text/plain')
     delete_file_on_cleanup(file.id)
     file.id
   end

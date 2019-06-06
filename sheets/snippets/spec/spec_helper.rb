@@ -88,14 +88,14 @@ module TestHelpers
     body = {
       requests: [{
         repeat_cell: {
-          range: {
-            sheet_id: 0,
-            start_row_index: 0,
-            end_row_index: 10,
+          range:  {
+            sheet_id:           0,
+            start_row_index:    0,
+            end_row_index:      10,
             start_column_index: 0,
-            end_column_index: 10
+            end_column_index:   10
           },
-          cell: {
+          cell:   {
             user_entered_value: {
               string_value: 'Hello'
             }

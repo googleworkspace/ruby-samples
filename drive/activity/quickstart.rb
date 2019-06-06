@@ -54,9 +54,9 @@ end
 service = Google::Apis::AppsactivityV1::AppsactivityService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
-response = service.list_activities(source: 'drive.google.com',
+response = service.list_activities(source:            'drive.google.com',
                                    drive_ancestor_id: 'root',
-                                   page_size: 10)
+                                   page_size:         10)
 puts 'Recent activity:'
 puts 'No resent activity' if response.activities.empty?
 response.activities.each do |activity|

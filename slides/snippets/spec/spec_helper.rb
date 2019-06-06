@@ -101,7 +101,7 @@ module TestHelpers
       slide_ids << "slide_#{i}"
       requests << {
         create_slide: {
-          object_id_prop: slide_ids[i],
+          object_id_prop:         slide_ids[i],
           slide_layout_reference: {
             predefined_layout: layout
           }
@@ -118,32 +118,32 @@ module TestHelpers
     box_id = 'MyTextBox_01'
     pt350 = {
       magnitude: 350,
-      unit: 'PT'
+      unit:      'PT'
     }
     requests = [] << {
       create_shape: {
-        object_id_prop: box_id,
-        shape_type: 'TEXT_BOX',
+        object_id_prop:     box_id,
+        shape_type:         'TEXT_BOX',
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: pt350,
-            width: pt350
+            width:  pt350
           },
-          transform: {
-            scale_x: 1,
-            scale_y: 1,
+          transform:      {
+            scale_x:     1,
+            scale_y:     1,
             translate_x: 350,
             translate_y: 100,
-            unit: 'PT'
+            unit:        'PT'
           }
         }
       }
     } << {
       insert_text: {
-        object_id_prop: box_id,
+        object_id_prop:  box_id,
         insertion_index: 0,
-        text: 'New Box Text Inserted'
+        text:            'New Box Text Inserted'
       }
     }
 
@@ -156,26 +156,26 @@ module TestHelpers
     chart_id = 'MyChart_01'
     emu4m = {
       magnitude: 4_000_000,
-      unit: 'EMU'
+      unit:      'EMU'
     }
     requests = [] << {
       create_sheets_chart: {
-        object_id_prop: chart_id,
-        spreadsheet_id: spreadsheet_id,
-        chart_id: sheet_chart_id,
-        linking_mode: 'LINKED',
+        object_id_prop:     chart_id,
+        spreadsheet_id:     spreadsheet_id,
+        chart_id:           sheet_chart_id,
+        linking_mode:       'LINKED',
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: emu4m,
-            width: emu4m
+            width:  emu4m
           },
-          transform: {
-            scale_x: 1,
-            scale_y: 1,
+          transform:      {
+            scale_x:     1,
+            scale_y:     1,
             translate_x: 100_000,
             translate_y: 100_000,
-            unit: 'EMU'
+            unit:        'EMU'
           }
         }
       }

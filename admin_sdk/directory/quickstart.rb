@@ -56,9 +56,9 @@ service = Google::Apis::AdminDirectoryV1::DirectoryService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 # List the first 10 users in the domain
-response = service.list_users(customer: 'my_customer',
+response = service.list_users(customer:    'my_customer',
                               max_results: 10,
-                              order_by: 'email')
+                              order_by:    'email')
 puts 'Users:'
 puts 'No users found' if response.users.empty?
 response.users.each { |user| puts "- #{user.primary_email} (#{user.name.full_name})" }

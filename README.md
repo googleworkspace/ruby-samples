@@ -55,7 +55,7 @@ A collection of samples that demonstrate how to call G Suite APIs in Ruby.
 
 ```
 gem install rubocop
-rubocop --fix
+rubocop
 ```
 
 It should not produce any errors, i.e.:
@@ -65,4 +65,10 @@ Inspecting 24 files
 ........................
 
 24 files inspected, no offenses detected
+```
+
+You can fix basic errors with:
+
+```
+rubocop --fix
 ```

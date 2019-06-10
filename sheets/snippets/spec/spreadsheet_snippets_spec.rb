@@ -70,7 +70,7 @@ RSpec.describe SpreadsheetSnippets do
   end
 
   it "should update values" do
-    id = create_test_spreadsheet
+    id = create_test_spreadsheetgspe
     result = @snippets.update_values id, "A1:B2", "USER_ENTERED", VALUES_2D
     expect(result).to_not be_nil
     expect(result.updated_rows).to eq(2)

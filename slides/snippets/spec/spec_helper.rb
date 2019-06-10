@@ -26,6 +26,7 @@ require "google/apis/slides_v1"
 require "google/apis/sheets_v4"
 require "google/apis/drive_v3"
 
+# Test helper
 module TestHelpers
   def build_drive_service
     drive = Google::Apis::DriveV3::DriveService.new

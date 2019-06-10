@@ -25,6 +25,7 @@ require "googleauth"
 require "google/apis/drive_v3"
 require "google/apis/sheets_v4"
 
+# Test helpers
 module TestHelpers
   def build_service
     sheets = Google::Apis::SheetsV4::SheetsService.new

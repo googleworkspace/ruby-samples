@@ -88,35 +88,36 @@ class FileSnippets
       magnitude: '350',
       unit:      'PT'
     }
-    requests = [{
-      create_shape: {
-        object_id_prop:     element_id,
-        shape_type:         'TEXT_BOX',
-        element_properties: {
-          page_object_id: page_id,
-          size:           {
-            height: pt350,
-            width:  pt350
-          },
-          transform:      {
-            scale_x:     '1',
-            scale_y:     '1',
-            translate_x: '350',
-            translate_y: '100',
-            unit:        'PT'
+    requests = [
+      {
+        create_shape: {
+          object_id_prop:     element_id,
+          shape_type:         'TEXT_BOX',
+          element_properties: {
+            page_object_id: page_id,
+            size:           {
+              height: pt350,
+              width:  pt350
+            },
+            transform:      {
+              scale_x:     '1',
+              scale_y:     '1',
+              translate_x: '350',
+              translate_y: '100',
+              unit:        'PT'
+            }
           }
         }
+      },
+      # Insert text into the box, using the supplied element ID.
+      {
+        insert_text: {
+          object_id_prop:  element_id,
+          insertion_index: 0,
+          text:            'New Box Text Inserted!'
+        }
       }
-    },
-
-                # Insert text into the box, using the supplied element ID.
-                {
-                  insert_text: {
-                    object_id_prop:  element_id,
-                    insertion_index: 0,
-                    text:            'New Box Text Inserted!'
-                  }
-                }]
+    ]
 
     # Execute the request.
     req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)

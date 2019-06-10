@@ -9,6 +9,11 @@ AllCops:
   Exclude:
   - '**/lib/**/*'
 
+# Exclude rubocop inheritance
+inherit_mode:
+  merge:
+    - Exclude
+
 Metrics/BlockLength:
   Max: 200
 

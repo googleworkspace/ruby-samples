@@ -8,6 +8,6 @@ rvm:
   - 2.5.1
   - ruby-head
 before_install:
-  - gem install rubocop
+  - gem install rubocop google-style
 script:
   - rubocop

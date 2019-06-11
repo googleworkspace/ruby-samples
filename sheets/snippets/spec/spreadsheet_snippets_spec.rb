@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'spec_helper'
-require 'spreadsheet_snippets'
+require "spec_helper"
+require "spreadsheet_snippets"
 
 VALUES_2D = [
   %w[A B],
@@ -23,34 +23,34 @@ VALUES_2D = [
 RSpec.describe SpreadsheetSnippets do
   include TestHelpers
 
-  before(:all) do
-    @snippets = SpreadsheetSnippets.new(build_service)
+  before :all do
+    @snippets = SpreadsheetSnippets.new build_service
     reset
   end
 
-  after(:all) do
+  after :all do
     cleanup_files
   end
 
-  it 'should create a spreadsheet' do
+  it "should create a spreadsheet" do
     id = @snippets.create
     expect(id).to_not be_nil
-    delete_file_on_cleanup(id)
+    delete_file_on_cleanup id
   end
 
-  it 'should batch update a spreadsheet' do
+  it "should batch update a spreadsheet" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.batch_update(id, 'New Title', 'Hello', 'Goodbye')
+    populate_values id
+    result = @snippets.batch_update id, "New Title", "Hello", "Goodbye"
     expect(result.replies.length).to eq(2)
     find_replace_response = result.replies[1].find_replace
     expect(find_replace_response.occurrences_changed).to eq(100)
   end
 
-  it 'should get values' do
+  it "should get values" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.get_values(id, 'A1:C2')
+    populate_values id
+    result = @snippets.get_values id, "A1:C2"
     expect(result).to_not be_nil
     values = result.values
     expect(values).to_not be_nil
@@ -58,10 +58,10 @@ RSpec.describe SpreadsheetSnippets do
     expect(values[0].length).to eq(3)
   end
 
-  it 'should batch get values' do
+  it "should batch get values" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.batch_get_values(id, ['A1:A3', 'B1:C1'])
+    populate_values id
+    result = @snippets.batch_get_values id, ["A1:A3", "B1:C1"]
     value_ranges = result.value_ranges
     expect(result).to_not be_nil
     expect(value_ranges.length).to eq(2)
@@ -69,18 +69,18 @@ RSpec.describe SpreadsheetSnippets do
     expect(values.length).to eq(3)
   end
 
-  it 'should update values' do
-    id = create_test_spreadsheet
-    result = @snippets.update_values(id, 'A1:B2', 'USER_ENTERED', VALUES_2D)
+  it "should update values" do
+    id = create_test_spreadsheetgspe
+    result = @snippets.update_values id, "A1:B2", "USER_ENTERED", VALUES_2D
     expect(result).to_not be_nil
     expect(result.updated_rows).to eq(2)
     expect(result.updated_columns).to eq(2)
     expect(result.updated_cells).to eq(4)
   end
 
-  it 'should batch update values' do
+  it "should batch update values" do
     id = create_test_spreadsheet
-    result = @snippets.batch_update_values(id, 'A1:B2', 'USER_ENTERED', VALUES_2D)
+    result = @snippets.batch_update_values id, "A1:B2", "USER_ENTERED", VALUES_2D
     expect(result).to_not be_nil
     responses = result.responses
     expect(responses.length).to eq(1)
@@ -88,30 +88,30 @@ RSpec.describe SpreadsheetSnippets do
     expect(responses[0].updated_columns).to eq(2)
   end
 
-  it 'should append values' do
+  it "should append values" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.append_values(id, 'Sheet1', 'USER_ENTERED', VALUES_2D)
+    populate_values id
+    result = @snippets.append_values id, "Sheet1", "USER_ENTERED", VALUES_2D
     expect(result).to_not be_nil
-    expect(result.table_range).to eq('Sheet1!A1:J10')
+    expect(result.table_range).to eq("Sheet1!A1:J10")
     updates = result.updates
-    expect(updates.updated_range).to eq('Sheet1!A11:B12')
+    expect(updates.updated_range).to eq("Sheet1!A11:B12")
     expect(updates.updated_rows).to eq(2)
     expect(updates.updated_columns).to eq(2)
     expect(updates.updated_cells).to eq(4)
   end
 
-  it 'should create pivot tables' do
+  it "should create pivot tables" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.pivot_tables(id)
+    populate_values id
+    result = @snippets.pivot_tables id
     expect(result).to_not be_nil
   end
 
-  it 'should conditionally format' do
+  it "should conditionally format" do
     id = create_test_spreadsheet
-    populate_values(id)
-    result = @snippets.conditional_formatting(id)
+    populate_values id
+    result = @snippets.conditional_formatting id
     expect(result.spreadsheet_id).to eq(id)
     expect(result.replies.length).to eq(2)
   end

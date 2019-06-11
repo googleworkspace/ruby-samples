@@ -13,19 +13,20 @@
 # limitations under the License.
 
 spec_dir = __dir__
-root_dir = File.expand_path(File.join(spec_dir, '..'))
-lib_dir = File.expand_path(File.join(root_dir, 'lib'))
+root_dir = File.expand_path File.join(spec_dir, "..")
+lib_dir = File.expand_path File.join(root_dir, "lib")
 
-$LOAD_PATH.unshift(spec_dir)
-$LOAD_PATH.unshift(lib_dir)
+$LOAD_PATH.unshift spec_dir
+$LOAD_PATH.unshift lib_dir
 $LOAD_PATH.uniq!
 
-require 'rspec'
-require 'googleauth'
-require 'google/apis/slides_v1'
-require 'google/apis/sheets_v4'
-require 'google/apis/drive_v3'
+require "rspec"
+require "googleauth"
+require "google/apis/slides_v1"
+require "google/apis/sheets_v4"
+require "google/apis/drive_v3"
 
+# Test helper
 module TestHelpers
   def build_drive_service
     drive = Google::Apis::DriveV3::DriveService.new
@@ -76,7 +77,7 @@ module TestHelpers
     drive_service.batch do
       @files_to_delete.each do |file_id|
         puts "Deleting file #{file_id}"
-        drive_service.delete_file(file_id) do |res, err|
+        drive_service.delete_file file_id do |res, err|
           # Ignore errors...
         end
       end
@@ -85,23 +86,23 @@ module TestHelpers
 
   def create_test_presentation
     presentation = slides_service.create_presentation(
-      'title' => 'Test Preso'
+      "title" => "Test Preso"
     )
     presentation.presentation_id
   end
 
-  def delete_file_on_cleanup(file_id)
+  def delete_file_on_cleanup file_id
     @files_to_delete << file_id
   end
 
-  def add_slides(presentation_id, num, layout = 'TITLE_AND_TWO_COLUMNS')
+  def add_slides presentation_id, num, layout = "TITLE_AND_TWO_COLUMNS"
     requests = []
     slide_ids = []
     (0..num).each do |i|
       slide_ids << "slide_#{i}"
       requests << {
         create_slide: {
-          object_id_prop: slide_ids[i],
+          object_id_prop:         slide_ids[i],
           slide_layout_reference: {
             predefined_layout: layout
           }
@@ -109,80 +110,80 @@ module TestHelpers
       }
     end
 
-    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
-    slides_service.batch_update_presentation(presentation_id, req)
+    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new requests: requests
+    slides_service.batch_update_presentation presentation_id, req
     slide_ids
   end
 
-  def create_test_textbox(presentation_id, page_id)
-    box_id = 'MyTextBox_01'
+  def create_test_textbox presentation_id, page_id
+    box_id = "MyTextBox_01"
     pt350 = {
       magnitude: 350,
-      unit: 'PT'
+      unit:      "PT"
     }
     requests = [] << {
       create_shape: {
-        object_id_prop: box_id,
-        shape_type: 'TEXT_BOX',
+        object_id_prop:     box_id,
+        shape_type:         "TEXT_BOX",
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: pt350,
-            width: pt350
+            width:  pt350
           },
-          transform: {
-            scale_x: 1,
-            scale_y: 1,
+          transform:      {
+            scale_x:     1,
+            scale_y:     1,
             translate_x: 350,
             translate_y: 100,
-            unit: 'PT'
+            unit:        "PT"
           }
         }
       }
     } << {
       insert_text: {
-        object_id_prop: box_id,
+        object_id_prop:  box_id,
         insertion_index: 0,
-        text: 'New Box Text Inserted'
+        text:            "New Box Text Inserted"
       }
     }
 
-    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
-    response = slides_service.batch_update_presentation(presentation_id, req)
+    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new requests: requests
+    response = slides_service.batch_update_presentation presentation_id, req
     response.replies[0].create_shape.object_id_prop
   end
 
-  def create_test_sheets_chart(presentation_id, page_id, spreadsheet_id, sheet_chart_id)
-    chart_id = 'MyChart_01'
+  def create_test_sheets_chart presentation_id, page_id, spreadsheet_id, sheet_chart_id
+    chart_id = "MyChart_01"
     emu4m = {
       magnitude: 4_000_000,
-      unit: 'EMU'
+      unit:      "EMU"
     }
     requests = [] << {
       create_sheets_chart: {
-        object_id_prop: chart_id,
-        spreadsheet_id: spreadsheet_id,
-        chart_id: sheet_chart_id,
-        linking_mode: 'LINKED',
+        object_id_prop:     chart_id,
+        spreadsheet_id:     spreadsheet_id,
+        chart_id:           sheet_chart_id,
+        linking_mode:       "LINKED",
         element_properties: {
           page_object_id: page_id,
-          size: {
+          size:           {
             height: emu4m,
-            width: emu4m
+            width:  emu4m
           },
-          transform: {
-            scale_x: 1,
-            scale_y: 1,
+          transform:      {
+            scale_x:     1,
+            scale_y:     1,
             translate_x: 100_000,
             translate_y: 100_000,
-            unit: 'EMU'
+            unit:        "EMU"
           }
         }
       }
     }
 
-    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new(requests: requests)
-    response = slides_service.batch_update_presentation(presentation_id, req)
+    req = Google::Apis::SlidesV1::BatchUpdatePresentationRequest.new requests: requests
+    response = slides_service.batch_update_presentation presentation_id, req
     response.replies[0].create_sheets_chart.object_id_prop
   end
 end

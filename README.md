@@ -66,3 +66,9 @@ Inspecting 24 files
 
 24 files inspected, no offenses detected
 ```
+
+You can fix basic errors with:
+
+```
+rubocop --fix
+```

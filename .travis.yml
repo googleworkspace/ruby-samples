@@ -6,8 +6,10 @@ rvm:
   - 2.3.7
   - 2.4.4
   - 2.5.1
-  - ruby-head
 before_install:
-  - gem install rubocop
+  # https://docs.travis-ci.com/user/languages/ruby/#bundler-20
+  - gem update --system
+  - gem install bundler
+  - gem install rubocop google-style
 script:
   - rubocop

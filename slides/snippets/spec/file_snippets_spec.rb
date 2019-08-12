@@ -18,9 +18,7 @@ require "file_snippets"
 RSpec.describe FileSnippets do
   include TestHelpers
 
-  IMAGE_FILE_PATH = "../images/googlelogo_color_272x92dp.png".freeze
   IMAGE_URL = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png".freeze
-  IMAGE_MIMETYPE = "image/png".freeze
   TEMPLATE_PRESENTATION_ID = "1MmTR712m7U_kgeweE57POWwkEyWAV17AVAWjpmltmIg".freeze
   DATA_SPREADSHEET_ID = "14KaZMq2aCAGt5acV77zaA_Ps8aDt04G7T0ei4KiXLX8".freeze
   CHART_ID = 1107320627 # rubocop:disable Style/NumericLiterals
@@ -71,7 +69,7 @@ RSpec.describe FileSnippets do
   it "should create an image" do
     presentation_id = create_test_presentation
     page_id = add_slides(presentation_id, 1, "BLANK")[0]
-    response = @snippets.create_image presentation_id, page_id, IMAGE_FILE_PATH, IMAGE_MIMETYPE
+    response = @snippets.create_image presentation_id, page_id
     expect(response.replies.length).to eq(1)
     image_id = response.replies[0].create_image.object_id_prop
     expect(image_id).to_not be_nil

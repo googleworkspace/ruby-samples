@@ -1,6 +1,6 @@
-# G Suite Ruby Samples [![Build Status](https://travis-ci.org/gsuitedevs/ruby-samples.svg?branch=master)](https://travis-ci.org/gsuitedevs/ruby-samples)
+# Google Workspace Ruby Samples [![Build Status](https://travis-ci.org/gsuitedevs/ruby-samples.svg?branch=master)](https://travis-ci.org/gsuitedevs/ruby-samples)
 
-A collection of samples that demonstrate how to call G Suite APIs in Ruby.
+A collection of samples that demonstrate how to call Google Workspace APIs in Ruby.
 
 ## APIs
 

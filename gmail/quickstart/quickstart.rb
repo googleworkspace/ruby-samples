@@ -17,7 +17,7 @@ require "googleauth"
 require "googleauth/stores/file_token_store"
 require "fileutils"
 
-OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
+OOB_URI = "https://developers.google.com/oauthplayground".freeze
 APPLICATION_NAME = "Gmail API Ruby Quickstart".freeze
 CREDENTIALS_PATH = "credentials.json".freeze
 # The file token.yaml stores the user's access and refresh tokens, and is

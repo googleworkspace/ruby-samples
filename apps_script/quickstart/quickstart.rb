@@ -67,13 +67,12 @@ content = Google::Apis::ScriptV1::Content.new(
     Google::Apis::ScriptV1::File.new(
       name:   "hello",
       type:   "SERVER_JS",
-      source: "function helloWorld() {\n  console.log('Hello, world!'');\n}"
+      source: "function helloWorld() {\n console.log('Hello, world!');\n}"
     ),
     Google::Apis::ScriptV1::File.new(
       name:   "appsscript",
       type:   "JSON",
-      source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \
-        \"CLOUD\"}"
+      source: "{\"timeZone\":\"America/New_York\",\"exceptionLogging\": \"CLOUD\"}"
     )
   ],
   script_id: script_id

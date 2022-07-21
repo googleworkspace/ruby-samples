@@ -14,7 +14,7 @@
 
 source "https://rubygems.org"
 
-gem "activesupport", ">= 4.2", "< 5.1"
+gem "activesupport", ">= 4.2", "< 5.3"
 gem "google-api-client", "~> 0.11"
 gem "rspec", "~> 3.0"
 gem "thor", "~> 0.19"

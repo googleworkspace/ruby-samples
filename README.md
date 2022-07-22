@@ -1,5 +1,3 @@
-# Google Workspace Ruby Samples [![Build Status](https://travis-ci.org/googleworkspace/ruby-samples.svg?branch=master)](https://travis-ci.org/googleworkspace/ruby-samples)
-
 A collection of samples that demonstrate how to call Google Workspace APIs in Ruby.
 
 ## APIs

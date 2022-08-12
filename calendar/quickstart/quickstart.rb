@@ -29,7 +29,7 @@ SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
-# files or intitiating an OAuth2 authorization. If authorization is required,
+# files or initiating an OAuth2 authorization. If authorization is required,
 # the user's default browser will be launched to approve the request.
 #
 # @return [Google::Auth::UserRefreshCredentials] OAuth2 credentials
